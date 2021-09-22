@@ -108,7 +108,7 @@ async def getMessage(ctx, val):
     global arrayMessage
     global f
     if(val == 'Disgustoso'):
-        for x in arrayMessage:
+        for x in range(len(arrayMessage)):
             await ctx.send(arrayMessage[x])
         
 
