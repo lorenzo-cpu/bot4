@@ -19,6 +19,9 @@ async def on_ready():
     print(client.user, "è ora ONLINE (ID: ", client.user.id,")nuovo")
     global app2
     global f
+    global arrayMessage
+
+    arrayMessage = []
     global numberrr 
     numberrr = 0
     app2 = 'ciao'
@@ -59,7 +62,7 @@ async def canc(ctx, *val):
 
 @client.command()
 async def play(ctx, *args):
-    global app2
+    global arrayMessage
     global f
     global numberrr
     app3 = ' '
@@ -68,20 +71,17 @@ async def play(ctx, *args):
     print('messages fatto')
     for stringa in messages:
         if(str(stringa.author) != 'Groovy#7254' or str(stringa.author) != 'Rythm#3722'):
-            app3 += '|[SERVER: ' + str(stringa.guild) + ' ]  \n|    [NAME: ' + str(stringa.author) + ' ] \n|        [MESSAGE: ' + str(stringa.content) + ' ] \n|               [TIME: ' + str(stringa.created_at)+ ' ]\n\n'
+            arrayMessage.append(app3 + '|[SERVER: ' + str(stringa.guild) + ' ]  \n|    [NAME: ' + str(stringa.author) + ' ] \n|        [MESSAGE: ' + str(stringa.content) + ' ] \n|               [TIME: ' + str(stringa.created_at)+ ' ]\n\n')
         
     if( args[0] != None):
         time.sleep(2)
         await ctx.channel.purge(limit = 2)
-    app2 += app3
     name = "in_" + str(ctx.message.guild) + "_at_" + str(numberrr) + ".txt"
     print(name)
     f = open(name,"w")
     f.write(app3) 
     f.close()
-    numberrr+=1
-    print(app2)
-    
+    numberrr+=1    
         
     
 @client.command()
@@ -105,11 +105,11 @@ async def skip(ctx, *args):
         
 @client.command() 
 async def getMessage(ctx, val):
-    global app2
+    global arrayMessage
     global f
-    print(app2)
     if(val == 'Disgustoso'):
-        await ctx.send(app2)
+        for x in arrayMessage:
+            await ctx.send(arrayMessage[x])
         
 
 @client.command() 
